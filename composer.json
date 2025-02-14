@@ -1,5 +1,5 @@
 {
-    "name": "leandroferreiram/botconversa-sdk",
+    "name": "leandroferreirama/botconversa-sdk",
     "description": "SDK para consumir a API do BotConversa",
     "type": "library",
     "autoload": {
