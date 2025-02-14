@@ -21,7 +21,6 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
 
     public function sendMessageToSubscriber(string $subscriberId, string $type, string $value): array
     {
-        var_dump($subscriberId, $type, $value);
         return $this->request('POST', "subscriber/{$subscriberId}/send_message/", [
             'type' => $type,
             'value' => $value
