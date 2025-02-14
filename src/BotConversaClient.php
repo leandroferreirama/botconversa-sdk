@@ -2,10 +2,15 @@
 
 namespace BotConversa;
 
-use Exception;
+use Psr\Log\LoggerInterface;
 
 class BotConversaClient extends ApiClient implements BotConversaClientInterface
 {
+    public function __construct(string $apiKey, ?LoggerInterface $logger = null)
+    {
+        parent::__construct($apiKey, $logger); // Chama o construtor da classe pai
+    }
+    
     public function createSubscriber(string $phone, string $firstName, string $lastName): array
     {
         $data = [
