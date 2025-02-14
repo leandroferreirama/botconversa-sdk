@@ -42,7 +42,9 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
         $request = $this->request('GET', "subscriber/get_by_phone/{$phone}");
         if(!isset($request['id'])) {
             // Logando o erro antes de lançar a exceção
-            $this->logger->error("Nenhum assinante encontrado para o telefone: {$phone}");
+            if ($this->logger) {
+                $this->logger->error("Nenhum assinante encontrado para o telefone: {$phone}");
+            }
 
             return [
                 'error' => true,
