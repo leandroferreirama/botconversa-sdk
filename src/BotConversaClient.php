@@ -26,4 +26,16 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
             'value' => $value
         ]);
     }
+
+    public function sendMessageToPhone(string $phone, string $type, string $value): array
+    {
+        $request = $this->request('GET', "subscriber/get_by_phone/{$phone}");
+        if(!isset($request['id'])) {
+            return [];
+        }
+        return $this->request('POST', "subscriber/{$request['id']}/send_message/", [
+            'type' => $type,
+            'value' => $value
+        ]);
+    }
 }
