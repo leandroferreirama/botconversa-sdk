@@ -2,6 +2,8 @@
 
 namespace BotConversa;
 
+use Exception;
+
 class BotConversaClient extends ApiClient implements BotConversaClientInterface
 {
     public function createSubscriber(string $phone, string $firstName, string $lastName): array
@@ -26,12 +28,26 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
             'value' => $value
         ]);
     }
-
+    /**
+     * Envia uma mensagem para um telefone específico.
+     *
+     * @param string $phone O número de telefone do assinante.
+     * @param string $type O tipo da mensagem.
+     * @param string $value O conteúdo da mensagem.
+     * 
+     * @return array A resposta da API após o envio da mensagem.
+     */
     public function sendMessageToPhone(string $phone, string $type, string $value): array
     {
         $request = $this->request('GET', "subscriber/get_by_phone/{$phone}");
         if(!isset($request['id'])) {
-            return [];
+            // Logando o erro antes de lançar a exceção
+            $this->logger->error("Nenhum assinante encontrado para o telefone: {$phone}");
+
+            return [
+                'error' => true,
+                'message' => "Nenhum assinante encontrado para o telefone: {$phone}"
+            ];
         }
         return $this->request('POST', "subscriber/{$request['id']}/send_message/", [
             'type' => $type,
