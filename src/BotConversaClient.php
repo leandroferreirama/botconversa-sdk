@@ -68,4 +68,11 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
             'value' => $value
         ]);
     }
+
+    public function sendFlow(string $subscriberId, string $flow): array
+    {
+        return $this->request('POST', "subscriber/{$subscriberId}/send_flow/", [
+            'flow' => $flow
+        ]);
+    }
 }
