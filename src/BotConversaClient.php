@@ -61,4 +61,11 @@ class BotConversaClient extends ApiClient implements BotConversaClientInterface
             'value' => $value
         ]);
     }
+
+    public function saveCustomField(string $subscriberId, int $custom, string $value): array
+    {
+        return $this->request('POST', "subscriber/{$subscriberId}/custom_fields/{$custom}/", [
+            'value' => $value
+        ]);
+    }
 }
